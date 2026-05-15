@@ -5,7 +5,7 @@ Nathan Mazzaro Pereira
 3 - Quais códigos você não precisou repetir nas classes filhas por causa da classe Forma?
 4 - Como o Python soube qual fórmula de área usar se, dentro do for, chamamos apenas o método .area()?
 5 - Caso você precisasse adicionar os cálculos para área e perímetro de Triângulo Equilátero, o que precisaria fazer? 
-6 - Explique o que é o princípio de aberto/fechado dentro do SOLID. Como este princípio pode ser visto nesta estrutura que vocês montaram? 
+6 - Explique o que é o princípio de aberto/fechado dentro do SOLID. Como este princípio pode ser visto nesta estrutura que vocês montaram? (Tive que pesquisar no CHATGPT)
 
 1 - O Python gerou um erro, porque Forma é uma classe abstrata.
 Classes abstratas possuem métodos abstratos (@abstractmethod) que ainda não foram utilizados de forma efetiva.
