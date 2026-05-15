@@ -1,24 +1,24 @@
 from abc import ABC, abstractmethod
-import math  # Pra usar 𝝅
+from math import pi as math# Pra usar 𝝅
 
 
 class Forma(ABC):
     def __init__(self, cor):
         self.__cor = cor  # Todos possuem uma cor
 
-    @property # Ler a cor
+    @property
     def cor(self):
         return self.__cor
 
-    @cor.setter # Alterar a cor
+    @cor.setter
     def cor(self, nova_cor):
         self.__cor = nova_cor
 
-    @abstractmethod # "Contrato"
+    @abstractmethod
     def area(self):
         pass
 
-    @abstractmethod # "Contrato"
+    @abstractmethod
     def perimetro(self):
         pass
 
@@ -136,69 +136,68 @@ def AdicionarForma():
             "(Círculo, Quadrado, Triângulo, Retângulo, Pentágono): "
         )
 
-        if isinstance(valor, str):
-            match valor.lower():
-                case "círculo" | "circulo":
-                    cor = input("Qual a cor do círculo?: ")
-                    try:
-                        raio = float(input("Raio: "))
-                    except ValueError:
-                        print("Digite um número válido.")
-                        continue
-                    lista.append(Círculo(cor, raio))
-                    i += 1
+        match valor.lower():
+            case "círculo" | "circulo":
+                cor = input("Qual a cor do círculo?: ")
+                try:
+                    raio = float(input("Raio: "))
+                except ValueError:
+                    print("Digite um número válido.")
+                    continue
+                lista.append(Círculo(cor, raio))
+                i += 1
 
-                case "quadrado":
-                    cor = input("Qual a cor do quadrado?: ")
-                    try:
-                        lado = float(input("Lado: "))
-                    except ValueError:
-                        print("Digite um número válido.")
-                        continue
-                    lista.append(Quadrado(cor, lado))
-                    i += 1
+            case "Quadrado" | "quadrado":
+                cor = input("Qual a cor do quadrado?: ")
+                try:
+                    lado = float(input("Lado: "))
+                except ValueError:
+                    print("Digite um número válido.")
+                    continue
+                lista.append(Quadrado(cor, lado))
+                i += 1
 
-                case "triângulo" | "triangulo":
-                    cor = input("Qual a cor do triângulo?: ")
-                    try:
-                        base = float(input("Base: "))
-                        altura = float(input("Altura: "))
-                        lado1 = float(input("Lado 1: "))
-                        lado2 = float(input("Lado 2: "))
-                    except ValueError:
-                        print("Digite apenas números.")
-                        continue
-                    if (
-                        lado1 + lado2 > base and
-                        lado2 + base > lado1 and
-                        lado1 + base > lado2
-                    ):  # Regra para ser um triângulo
-                        i += 1
-                        lista.append(
-                            Triângulo(cor, base, altura, lado1, lado2))
-                    else:
-                        print("Valores inválidos para a formação de um triângulo!")
-
-                case "retângulo" | "retangulo":
-                    cor = input("Qual a cor do retângulo?: ")
+            case "triângulo" | "triangulo":
+                cor = input("Qual a cor do triângulo?: ")
+                try:
                     base = float(input("Base: "))
                     altura = float(input("Altura: "))
-                    lista.append(Retângulo(cor, base, altura))
+                    lado1 = float(input("Lado 1: "))
+                    lado2 = float(input("Lado 2: "))
+                except ValueError:
+                    print("Digite apenas números.")
+                    continue
+                if (
+                    lado1 + lado2 > base and
+                    lado2 + base > lado1 and
+                    lado1 + base > lado2
+                ):  # Regra para ser um triângulo
                     i += 1
+                    lista.append(
+                        Triângulo(cor, base, altura, lado1, lado2))
+                else:
+                    print("Valores inválidos para a formação de um triângulo!")
 
-                case "pentágono" | "pentagono":
-                    cor = input("Qual a cor do pentágono?: ")
-                    try:
-                        lado = float(input("Lado: "))
-                        apotema = float(input("Apótema: "))
-                    except ValueError:
-                        print("Digite apenas números.")
-                        continue
-                    lista.append(Pentágono(cor, lado, apotema))
-                    i += 1
+            case "retângulo" | "retangulo":
+                cor = input("Qual a cor do retângulo?: ")
+                base = float(input("Base: "))
+                altura = float(input("Altura: "))
+                lista.append(Retângulo(cor, base, altura))
+                i += 1
 
-                case _:
-                    print("Forma inválida!")
+            case "pentágono" | "pentagono":
+                cor = input("Qual a cor do pentágono?: ")
+                try:
+                    lado = float(input("Lado: "))
+                    apotema = float(input("Apótema: "))
+                except ValueError:
+                    print("Digite apenas números.")
+                    continue
+                lista.append(Pentágono(cor, lado, apotema))
+                i += 1
+
+            case _:
+                print("Forma inválida!")
 
     return lista
 
