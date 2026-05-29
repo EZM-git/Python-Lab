@@ -5,7 +5,7 @@ from gi.repository import Gtk
 class Aplicacao:
    def __init__(self):
        janela = Gtk.Window()
-       janela.set_title("GUI com Python e Gtk") 				  
+       janela.set_title("Atividade 1") 				  
        janela.set_default_size(400, 200)		
        rotulo = Gtk.Label()
        rotulo.set_label("NATHAN MAZZARO PEREIRA\n 2º Informática")
