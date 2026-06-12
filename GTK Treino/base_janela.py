@@ -19,6 +19,10 @@ class Tela:
             homogeneous=False, 
             spacing=10
         )
+        
+        # Atributo da classe, acessível em outros métodos
+        self.lbl_msg = Gtk.Label(label="XXXX")
+        caixa.add(self.lbl_msg)
 
         btn_amor = Gtk.Button()
         btn_amor.set_label("Amor")
