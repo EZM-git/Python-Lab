@@ -24,20 +24,11 @@ class Tela:
         self.lbl_msg = Gtk.Label(label="XXXX")
         caixa.add(self.lbl_msg)
 
-        btn_amor = Gtk.Button()
-        btn_amor.set_label("Amor")
-        btn_amor.connect("clicked", self.imprimir, 2)
-        caixa.add(btn_amor)
-
-        btn_presente = Gtk.Button()
-        btn_presente.set_label("Presente")
-        btn_presente.connect("clicked", self.imprimir, 3)
-        caixa.add(btn_presente)
-
-        btn_coracao = Gtk.Button()
-        btn_coracao.set_label("Coração <3")
-        btn_coracao.connect("clicked", self.imprimir, 4)
-        caixa.add(btn_coracao)
+        botoes = ["Amor", "Presente", "Coração"]
+        for texto in botoes:
+            btn = Gtk.Button(label=texto)
+            btn.connect("clicked", self.imprimir)
+            caixa.add(btn)
 
         janela.add(caixa)
         janela.show_all()
@@ -47,7 +38,9 @@ class Tela:
 
     def imprimir(self, componente=None, dados=None):
         msg = componente.get_label()
-        print(f":) {msg*dados}")
+        print(f":) {msg}")
+        msg = msg.lower()
+        self.lbl_msg.set_label(msg)
 
 if __name__ == "__main__":
     tela1 = Tela()
