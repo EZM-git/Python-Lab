@@ -42,6 +42,12 @@ class Tela:
         msg = msg.lower()
         self.lbl_msg.set_label(msg)
 
+        # Utilizado para selecionar casos específicos
+        """
+        if msg == "amor":
+            print("Passou amor!")
+        """
+
 if __name__ == "__main__":
     tela1 = Tela()
     Gtk.main()
