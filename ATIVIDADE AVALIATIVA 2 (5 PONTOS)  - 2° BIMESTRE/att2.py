@@ -1,39 +1,39 @@
 import gi
-gi.require_version("Gtk", "3.0") # Ou "4.0" se preferir a versão mais recente
-from gi.repository import Gtk
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk 
 
-class ContadorCliques(Gtk.Window):
+class Tela:
     def __init__(self):
-        super().__init__(title="Contador de Cliques")
-        self.set_border_width(20)
-        self.set_default_size(200, 150)
+        janela = Gtk.Window()
+        janela.connect("delete-event", self.sair)
+        janela.set_title("Título da janela")
+        janela.set_border_width(20)
+        janela.set_default_size(400, 300)
 
-        # Variável para armazenar a contagem
-        self.quantidade = 0
+        caixa = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, 
+            homogeneous=False, 
+            spacing=10
+        )
 
-        # Cria uma caixa vertical (Gtk.Box) para organizar os elementos
-        caixa = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.add(caixa)
+        self.valor = 0
+        self.rotulo = Gtk.Label(label=str(self.valor))
+        caixa.add(self.rotulo)
 
-        # Cria o rótulo inicial com o número "0"
-        self.rotulo = Gtk.Label()
-        self.rotulo.set_text(str(self.quantidade))
-        caixa.pack_start(self.rotulo, True, True, 0)
+        btn = Gtk.Button(label="Clique Aqui!")
+        btn.connect("clicked", self.clicar)
+        caixa.add(btn)
 
-        # Cria o botão com o texto "Clique Aqui!"
-        botao = Gtk.Button(label="Clique Aqui!")
-        
-        # Conecta o sinal de clique do botão à função de callback
-        botao.connect("clicked", self.ao_clicar_botao)
-        caixa.pack_start(botao, True, True, 0)
+        janela.add(caixa)
+        janela.show_all()
 
-    # Função chamada quando o botão é clicado
-    def ao_clicar_botao(self, widget):
-        self.quantidade += 1 # Incrementa a variável
-        self.rotulo.set_text(str(self.quantidade)) # Atualiza o rótulo
+    def sair(self, componente=None, dados=None):
+        Gtk.main_quit()
 
-# Inicializa a aplicação
-win = ContadorCliques()
-win.connect("destroy", Gtk.main_quit)
-win.show_all()
-Gtk.main()
+    def clicar(self, componente=None, dados=None):
+        self.valor += 1
+        self.rotulo.set_label(str(self.valor))
+
+if __name__ == "__main__":
+    tela1 = Tela()
+    Gtk.main()
