@@ -51,11 +51,6 @@ class Tela:
         else:
             self.lbl_msg.set_markup("<span foreground='red'><b>Acesso Liberado</b></span>")
 
-        # Utilizado para selecionar casos específicos
-        """
-        if msg == "amor":
-            print("Passou amor!")
-        """
 
 if __name__ == "__main__":
     tela1 = Tela()
