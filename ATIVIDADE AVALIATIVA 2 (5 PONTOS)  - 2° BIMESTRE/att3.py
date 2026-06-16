@@ -49,7 +49,7 @@ class Tela:
         if usuario == "admin" and senha == "123":
             self.lbl_msg.set_markup("<span foreground='green'><b>Acesso Liberado</b></span>")
         else:
-            self.lbl_msg.set_markup("<span foreground='red'><b>Acesso Liberado</b></span>")
+            self.lbl_msg.set_markup("<span foreground='red'><b>Acesso Negado</b></span>")
 
 
 if __name__ == "__main__":
