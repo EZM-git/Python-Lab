@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from gi.repository import Gtk
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk 
+import math
+
+
 
 class Tela:
     def __init__(self):
@@ -18,18 +21,18 @@ class Tela:
         frame = Gtk.Frame()
         frame.set_size_request(50, 50)
         caixa = Gtk.Box(
-            orientation=Gtk.Orientation.VERTICAL, 
-            homogeneous=False, 
+            orientation=Gtk.Orientation.VERTICAL,
+            homogeneous=False,
             spacing=10
         )
         caixa_hor_0 = Gtk.Box(
-            orientation=Gtk.Orientation.HORIZONTAL, 
-            homogeneous=False, 
+            orientation=Gtk.Orientation.HORIZONTAL,
+            homogeneous=False,
             spacing=10
         )
         caixa_hor_1 = Gtk.Box(
-            orientation=Gtk.Orientation.HORIZONTAL, 
-            homogeneous=False, 
+            orientation=Gtk.Orientation.HORIZONTAL,
+            homogeneous=False,
             spacing=10
         )
         caixa_hor_2 = Gtk.Box(
@@ -43,18 +46,20 @@ class Tela:
             spacing=10
         )
         caixa_hor_4 = Gtk.Box(
-            orientation=Gtk.Orientation.HORIZONTAL, 
+            orientation=Gtk.Orientation.HORIZONTAL,
             homogeneous=False,
             spacing=10
         )
         caixa_hor_5 = Gtk.Box(
-            orientation=Gtk.Orientation.HORIZONTAL, 
+            orientation=Gtk.Orientation.HORIZONTAL,
             homogeneous=False,
             spacing=10
         )
-        
+
         # Caixa de Texto
         self.valor_visor = "0"
+        self.valor1 = 0
+        self.valor2 = 0
         self.telinha = Gtk.Label(label="<big></big>", use_markup=True)
         self.telinha.set_justify(Gtk.Justification.RIGHT)
         caixa_hor_0.pack_end(self.telinha, expand=False, fill=False, padding=20)
@@ -65,10 +70,10 @@ class Tela:
             btn = Gtk.Button(label=texto)
             btn.connect("clicked", self.calculo)
             caixa_hor_1.add(btn)
-        
+
         btn_raiz = Gtk.Button(label="√")
         btn_raiz.connect("clicked", self.calculo)
-        caixa_hor_1.pack_end(btn_raiz, expand=False, fill=False, padding=11)
+        caixa_hor_1.pack_end(btn_raiz, expand=False, fill=False, padding=0)
 
         btn_2 = ["7", "8", "9", "+"]
         for texto in btn_2:
@@ -87,7 +92,7 @@ class Tela:
             btn = Gtk.Button(label=texto)
             btn.connect("clicked", self.calculo)
             caixa_hor_4.add(btn)
-        
+
         btn_0 = Gtk.Button(label="0")
         btn_0.connect("clicked", self.calculo)
         caixa_hor_5.pack_start(btn_0, expand=False, fill=False, padding=0)
@@ -96,9 +101,9 @@ class Tela:
         btn_igual.connect("clicked", self.calculo)
         caixa_hor_5.pack_start(btn_igual, expand=True, fill=True, padding=0)
 
-        btn_divisao =  Gtk.Button(label="/")
+        btn_divisao = Gtk.Button(label="/")
         btn_divisao.connect("clicked", self.calculo)
-        caixa_hor_5.pack_end(btn_divisao, expand=False, fill=True, padding=11)
+        caixa_hor_5.pack_end(btn_divisao, expand=False, fill=True, padding=0)
 
         frame.add(caixa_hor_0)
         caixa.add(frame)
@@ -115,14 +120,32 @@ class Tela:
 
     def calculo(self, componente=None, dados=None):
         informacao = componente.get_label()
-        if informacao in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-            if self.valor_visor == "0":
-                self.valor_visor = ""
-                self.valor_visor += informacao
-                self.telinha.set_label(self.valor_visor)
-            else:
-                self.valor_visor += informacao
-                self.telinha.set_label(self.valor_visor)
+        tamanho = len(self.valor_visor)
+        if tamanho <= 12:
+            if informacao in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                if self.valor_visor == "0":
+                    self.valor_visor = ""
+                    self.valor_visor += informacao
+                    self.telinha.set_label(self.valor_visor)
+                else:
+                    self.valor_visor += informacao
+                    self.telinha.set_label(self.valor_visor)
+
+        if informacao == "C":
+            self.valor_visor = ""
+            self.valor1 = 0
+            self.valor2 = 0
+            self.telinha.set_label(self.valor_visor)
+
+        if informacao == "√":
+            self.valor1 = float(self.valor_visor)
+            self.valor_visor = round(math.sqrt(self.valor1), 2)
+            print(self.valor_visor)
+            self.valor1 = 0
+
+        if informacao == "=":
+            self.telinha.set_label(str(self.valor_visor))
+
 
 
 if __name__ == "__main__":
