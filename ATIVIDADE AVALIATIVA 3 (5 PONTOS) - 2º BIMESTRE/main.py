@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import math
 from gi.repository import Gtk
 import gi
 gi.require_version("Gtk", "3.0")
-import math
-
 
 
 class Tela:
@@ -60,16 +59,20 @@ class Tela:
         self.valor_visor = "0"
         self.valor1 = 0
         self.valor2 = 0
+        self.operacao = ""
+        self.ligado = "Desligado!"
         self.telinha = Gtk.Label(label="<big></big>", use_markup=True)
         self.telinha.set_justify(Gtk.Justification.RIGHT)
         caixa_hor_0.pack_end(self.telinha, expand=False, fill=False, padding=20)
 
         # Botões
-        btn_1 = ["ON", "C"]
-        for texto in btn_1:
-            btn = Gtk.Button(label=texto)
-            btn.connect("clicked", self.calculo)
-            caixa_hor_1.add(btn)
+        btn_ON = Gtk.Button(label="ON")
+        btn_ON.connect("clicked", self.calculo)
+        caixa_hor_1.add(btn_ON)
+
+        btn_C = Gtk.Button(label="C")
+        btn_C.connect("clicked", self.calculo)
+        caixa_hor_1.add(btn_C)
 
         btn_raiz = Gtk.Button(label="√")
         btn_raiz.connect("clicked", self.calculo)
@@ -120,32 +123,74 @@ class Tela:
 
     def calculo(self, componente=None, dados=None):
         informacao = componente.get_label()
-        tamanho = len(self.valor_visor)
-        if tamanho <= 12:
-            if informacao in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                if self.valor_visor == "0":
-                    self.valor_visor = ""
-                    self.valor_visor += informacao
-                    self.telinha.set_label(self.valor_visor)
-                else:
-                    self.valor_visor += informacao
-                    self.telinha.set_label(self.valor_visor)
 
-        if informacao == "C":
+        if informacao == "ON":
+            if self.ligado == "Ligado!":
+                self.sair()
+            else:
+                self.ligado = "Ligado!"
+                self.telinha.set_label(self.ligado)
+
+        elif informacao == "C":
             self.valor_visor = ""
-            self.valor1 = 0
-            self.valor2 = 0
             self.telinha.set_label(self.valor_visor)
 
-        if informacao == "√":
+        elif informacao == "√":
+            self.operacao = "√"
             self.valor1 = float(self.valor_visor)
-            self.valor_visor = round(math.sqrt(self.valor1), 2)
-            print(self.valor_visor)
-            self.valor1 = 0
 
-        if informacao == "=":
-            self.telinha.set_label(str(self.valor_visor))
+        elif informacao == "+":
+            self.operacao = "+"
+            self.valor1 = float(self.valor_visor)
+            self.valor_visor = ""
 
+        elif informacao == "-":
+            self.operacao = "-"
+            self.valor1 = float(self.valor_visor)
+            self.valor_visor = ""
+
+        elif informacao == "*":
+            self.operacao = "*"
+            self.valor1 = float(self.valor_visor)
+            self.valor_visor = ""
+
+        elif informacao == "/":
+            self.operacao = "/"
+            self.valor1 = float(self.valor_visor)
+            self.valor_visor = ""
+
+        elif informacao == "=":
+            if self.operacao == "√":
+                resultado = round(math.sqrt(self.valor1), 2)
+
+            else:
+                self.valor2 = float(self.valor_visor)
+
+                if self.operacao == "+":
+                    resultado = self.valor1 + self.valor2
+
+                elif self.operacao == "-":
+                    resultado = self.valor1 - self.valor2
+
+                elif self.operacao == "*":
+                    resultado = self.valor1 * self.valor2
+
+                elif self.operacao == "/":
+                    resultado = self.valor1 / self.valor2
+
+            self.valor_visor = str(resultado)
+            self.telinha.set_label(self.valor_visor)
+
+        else:
+            if len(self.valor_visor) <= 12:
+                if informacao in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                    if self.valor_visor == "0":
+                        self.valor_visor = ""
+                        self.valor_visor += informacao
+                        self.telinha.set_label(self.valor_visor)
+                    else:
+                        self.valor_visor += informacao
+                        self.telinha.set_label(self.valor_visor)
 
 
 if __name__ == "__main__":
