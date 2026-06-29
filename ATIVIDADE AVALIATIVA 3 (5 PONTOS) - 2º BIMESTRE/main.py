@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Nathan Mazzaro, Matheus Milano. Dante Venga
+# Nathan Mazzaro, Matheu Milano, Dante Venga
 
 import math
 from gi.repository import Gtk
@@ -139,26 +139,32 @@ class Tela:
         elif informacao == "√":
             self.operacao = "√"
             self.valor1 = float(self.valor_visor)
+            resp = "√" + str(int(self.valor1))
+            self.telinha.set_label(resp)
 
         elif informacao == "+":
             self.operacao = "+"
             self.valor1 = float(self.valor_visor)
             self.valor_visor = ""
+            self.telinha.set_label("+")
 
         elif informacao == "-":
             self.operacao = "-"
             self.valor1 = float(self.valor_visor)
             self.valor_visor = ""
+            self.telinha.set_label("-")
 
         elif informacao == "*":
             self.operacao = "*"
             self.valor1 = float(self.valor_visor)
             self.valor_visor = ""
+            self.telinha.set_label("*")
 
         elif informacao == "/":
             self.operacao = "/"
             self.valor1 = float(self.valor_visor)
             self.valor_visor = ""
+            self.telinha.set_label("/")
 
         elif informacao == "=":
             if self.operacao == "√":
