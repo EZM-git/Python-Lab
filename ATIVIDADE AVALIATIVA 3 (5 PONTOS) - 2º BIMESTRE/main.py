@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Nathan Mazzaro, Matheus Milano. Dante Venga
 
 import math
 from gi.repository import Gtk
